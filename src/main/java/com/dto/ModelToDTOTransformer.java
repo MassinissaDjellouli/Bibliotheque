@@ -5,6 +5,7 @@ import com.models.documents.Documents;
 import com.models.documents.Livre;
 import com.models.documents.Media;
 import com.models.users.Client;
+import com.models.users.Employe;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class ModelToDTOTransformer {
         return ClientDTO.builder()
                 .clientAdress(client.getClientAdress())
                 .clientName(client.getClientName())
-                .clientNumber(client.getClientNumber())
+                .clientNumber(Integer.toString(client.getClientNumber()))
                 .clientPhone(client.getClientPhone()).build();
     }
     public static List<ClientDTO> clientListToClientListDTO(List<Client> clients) {
@@ -96,5 +97,21 @@ public class ModelToDTOTransformer {
             clientDTOS.add(clientToClientDTO(client));
         }
         return clientDTOS;
+    }
+
+    public static List<EmployeDTO> employeListToEmployeListDTO(List<Employe> employes) {
+        List<EmployeDTO> employeDTOS = new ArrayList<>();
+        for(Employe employe : employes){
+            employeDTOS.add(employeToEmployeDTO(employe));
+        }
+        return employeDTOS;
+    }
+
+    private static EmployeDTO employeToEmployeDTO(Employe employe) {
+        return EmployeDTO.builder()
+                .id(Integer.toString(employe.getId()))
+                .password(employe.getPassword())
+                .username(employe.getUsername())
+                .build();
     }
 }
