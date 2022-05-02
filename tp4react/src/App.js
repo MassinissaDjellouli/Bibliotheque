@@ -6,7 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <>
-      <h1 class="bg-dark text-light text-center py-4">Bibliothèque de JavaTown</h1>
+      <h1 class="bg-dark text-light text-center py-4 m-0">Bibliothèque de JavaTown</h1>
     <Routes>
       <Route path="" element={<Home />}></Route>
       <Route path="users" element={<Users />}></Route>

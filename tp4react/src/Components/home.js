@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 
 export const Home = () => {
     return (
-        <div class="row d-flex justify-content-center">
-        <button class="btn btn-primary m-3 col-6 ">
-            <Link to="/users" class="text-light text-decoration-none">Portail utilisateur</Link>
-        </button>
-        <button class="btn btn-primary m-3 col-6 ">
-            <Link to="/employes" class="text-light text-decoration-none">Portail employé</Link>
-        </button>
+        <div className="row  align-items-center">
+            <div className=' d-flex justify-content-center'>
+
+                <Link to="/employes" className="col-6 text-light text-decoration-none">
+                    <button className="btn btn-dark m-3 py-5 col-12">Portail employé</button>
+                </Link>
+            </div>
+            <div className=' d-flex justify-content-center'>
+                <Link to="/users" className="col-6 text-light text-decoration-none">
+                    <button className="btn btn-dark m-3 py-5 col-12">Portail utilisateur</button>
+                </Link>
+            </div>
         </div>
     )
 }
