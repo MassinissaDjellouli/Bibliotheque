@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { UserHome } from './UserService/userHome';
+import { Routes, Route } from 'react-router-dom';
 
 export const Users = () => {
     return (
@@ -10,6 +12,9 @@ export const Users = () => {
                         <button className="col-12 btn btn-secondary m-3 py-2">Page d'accueil</button>
                     </Link>
             </div>
+            <Routes>
+              <Route path="" element={<UserHome />}></Route>
+            </Routes>
         </>
     )
 }
