@@ -1,5 +1,4 @@
 package com.models.users;
-import com.models.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +19,4 @@ public class Employe {
     private int id;
     private String username;
     private String password;
-    private Role role;
 }
