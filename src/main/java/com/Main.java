@@ -52,5 +52,8 @@ public class Main implements CommandLineRunner {
         //Todo liste d'emprunts:
         List<EmpruntDTO> emprunt = clientService.getEmprunts(clId);
         //Todo interface web
+        int emplId = employeeService.saveEmploye("emp1","password");
+        int adminId = employeeService.saveEmploye("admin","admin");
+
     }
 }

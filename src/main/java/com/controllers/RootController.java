@@ -1,6 +1,7 @@
 package com.controllers;
 
 import com.dto.ClientDTO;
+import com.dto.EmployeDTO;
 import com.dto.LivreDTO;
 import com.dto.MediaDTO;
 import com.form.ClientForm;
@@ -10,6 +11,7 @@ import com.models.documents.Documents;
 import com.models.enums.Genres;
 import com.models.enums.MediaType;
 import com.models.users.Client;
+import com.models.users.Employe;
 import com.service.ClientService;
 import com.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -39,10 +41,10 @@ public class RootController {
     public List<ClientDTO> getUsers(){
         return employeeService.getClientList();
     }
-//    @GetMapping("/employees")
-//    public String getEmployes(Model model){
-//        return "employees";
-//    }
+    @GetMapping("/employees")
+    public List<EmployeDTO> getEmployes(Model model){
+        return employeeService.getEmployeList();
+    }
 //    @GetMapping("/newLivre")
 //    public String getNewLivre(Model model){
 //        LivreDTO livreDTO = new LivreDTO();
