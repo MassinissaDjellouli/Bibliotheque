@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface ClientRepository extends JpaRepository<Client,Integer> {
     @Query("select c from Client c left join fetch c.emprunts where c.clientNumber = :integer")
-    public Optional<Client> findByIdWithEmprunts(@Param("integer") Integer integer);
+    Optional<Client> findByIdWithEmprunts(@Param("integer") Integer integer);
 }
