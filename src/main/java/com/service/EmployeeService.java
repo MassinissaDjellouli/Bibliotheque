@@ -10,6 +10,7 @@ import com.models.documents.Media;
 import com.models.enums.Genres;
 import com.models.enums.MediaType;
 import com.models.users.Client;
+import com.models.users.Employe;
 import com.repository.ClientRepository;
 import com.repository.DocumentRepository;
 import com.repository.EmployeeRepository;
@@ -46,7 +47,15 @@ public class EmployeeService {
         System.out.println(media.getDocumentId());
         return media.getDocumentId();
     }
-
+    public int saveEmploye(String username, String password){
+        Employe employe = Employe.builder()
+                .username(username)
+                .password(password)
+                .build();
+        employeeRepository.save(employe);
+        System.out.println(employe.getId());
+        return employe.getId();
+    }
     public List<ClientDTO> getClientList(){
         return ModelToDTOTransformer.clientListToClientListDTO(clientRepository.findAll());
     }
