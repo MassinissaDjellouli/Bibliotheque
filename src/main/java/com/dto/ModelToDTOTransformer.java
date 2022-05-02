@@ -4,6 +4,7 @@ import com.models.Emprunt;
 import com.models.documents.Documents;
 import com.models.documents.Livre;
 import com.models.documents.Media;
+import com.models.users.Client;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -82,5 +83,18 @@ public class ModelToDTOTransformer {
         }
         return empruntDTOList;
     }
-
+    public static ClientDTO clientToClientDTO(Client client){
+        return ClientDTO.builder()
+                .clientAdress(client.getClientAdress())
+                .clientName(client.getClientName())
+                .clientNumber(client.getClientNumber())
+                .clientPhone(client.getClientPhone()).build();
+    }
+    public static List<ClientDTO> clientListToClientListDTO(List<Client> clients) {
+        List<ClientDTO> clientDTOS= new ArrayList<>();
+        for(Client client : clients){
+            clientDTOS.add(clientToClientDTO(client));
+        }
+        return clientDTOS;
+    }
 }
