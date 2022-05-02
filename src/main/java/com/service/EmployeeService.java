@@ -3,6 +3,7 @@ package com.service;
 
 import com.dto.ClientDTO;
 import com.dto.DocumentDTO;
+import com.dto.EmployeDTO;
 import com.dto.ModelToDTOTransformer;
 import com.models.documents.Livre;
 import com.models.documents.Media;
@@ -11,6 +12,7 @@ import com.models.enums.MediaType;
 import com.models.users.Client;
 import com.repository.ClientRepository;
 import com.repository.DocumentRepository;
+import com.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,8 @@ public class EmployeeService {
     DocumentRepository documentRepository;
     @Autowired
     ClientRepository clientRepository;
+    @Autowired
+    EmployeeRepository employeeRepository;
     public int saveLivre(String titre, String auteur, String editeur, int anne, int tmpEmprunt, int nbExemplaires, int nbPages, Genres genre) {
         Livre livre = Livre.builder().titre(titre).auteur(auteur).editeur(editeur)
                 .anneeDePublication(anne).tempsEmprunt(tmpEmprunt)
@@ -55,5 +59,9 @@ public class EmployeeService {
     private <T> T handleOptional(Optional<T> optional) throws IllegalArgumentException{
         if (optional.isEmpty()) throw new IllegalArgumentException();
         return optional.get();
+    }
+
+    public List<EmployeDTO> getEmployeList() {
+        return ModelToDTOTransformer.employeListToEmployeListDTO(employeeRepository.findAll());
     }
 }
