@@ -37,12 +37,13 @@ public class RootController {
 //        return "index";
 //    }
     @GetMapping("/users")
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<ClientDTO> getUsers(){
         return employeeService.getClientList();
     }
     @GetMapping("/employees")
-    public List<EmployeDTO> getEmployes(Model model){
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<EmployeDTO> getEmployes(){
         return employeeService.getEmployeList();
     }
 //    @GetMapping("/newLivre")
