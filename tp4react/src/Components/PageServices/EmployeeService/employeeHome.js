@@ -1,10 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-export const EmployeHome = () => {
+import { EmployeHeader } from '../../Headers/employeHeader';
+
+export const EmployeHome = ({employes}) => {
+    let id = useParams().id;
+    console.log(employes)
+    let employee;
+    employes.map((employe) => {
+        if(employe.id == id) {
+            employee = employe;
+    }
+})
     return (
         <>
-        
+            <EmployeHeader />
+            {employee.username}
         </>
     )
 }
