@@ -1,13 +1,19 @@
 import React from "react";
 import { EmployeeCard } from "./EmployeCard";
-export const EmployeeList = ({employees}) => {
+export const EmployeeList = ({ employees }) => {
     console.log(employees.length)
     return (
-        <>
+        <div>
+            <h1 className="text-center">Connection</h1>
             {employees.map((employee) => {
-                    return <EmployeeCard employee={employee} />
-                }
+                return (
+                    <div className="m-3 d-flex justify-content-center row">
+                        <div className="col-6">
+                            <EmployeeCard employee={employee} />
+                        </div>
+                    </div>)
+            }
             )}
-        </>
+        </div>
     )
 }

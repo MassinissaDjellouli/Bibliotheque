@@ -9,7 +9,7 @@ export const Employes = ({employes}) => {
             <EmployeHeader />
             <EmployeeList employees={employes}/>
             <div className="row d-flex justify-content-center align-items-center">
-                    <Link to="/23" className="col-2 text-light text-decoration-none">
+                    <Link to="/" className="col-2 text-light text-decoration-none">
                         <button className="col-12 btn btn-primary m-3 py-2">Page d'accueil</button>
                     </Link>
             </div>
