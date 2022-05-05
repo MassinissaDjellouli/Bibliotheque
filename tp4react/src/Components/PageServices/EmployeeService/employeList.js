@@ -1,7 +1,6 @@
 import React from "react";
 import { EmployeeCard } from "./EmployeCard";
 export const EmployeeList = ({ employees }) => {
-    console.log(employees.length)
     return (
         <div>
             <h1 className="text-center">Connection</h1>

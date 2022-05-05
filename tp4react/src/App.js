@@ -27,7 +27,7 @@ function App() {
       setEmployes(emp);
     }
     const getUsers = async () => {
-      const user = await fetchUsers()
+      const users = await fetchUsers()
       setUsers(users);
     }
     getEmployees();
@@ -39,7 +39,7 @@ function App() {
       <MainHeader />
       <Routes>
         <Route path="" element={<Home />}></Route>
-        <Route path="users" element={<Users />}></Route>
+        <Route path="users" element={<Users users={users}/>}></Route>
         <Route path="employes" element={<Employes employes={employees} />}></Route>
         <Route path="employes/:id" element={<EmployeHome employes={employees} />}></Route>
         <Route path="23" element={<EmployeHome employes={employees} />}></Route>
