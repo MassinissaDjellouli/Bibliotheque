@@ -17,7 +17,6 @@ export const EmployeHome = ({employes}) => {
             <EmployeHeader />
             <div className='container'>
                 <h3>Bienvenue {employee.username}</h3>
-                
             </div>
         </>
     )
