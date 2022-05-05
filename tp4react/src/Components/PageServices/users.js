@@ -7,6 +7,7 @@ import { UserHeader } from '../Headers/usersHeader';
 export const Users = () => {
     return (
         <>
+        
         <UserHeader />
             <div className="row d-flex justify-content-center align-items-center">
                     <Link to="/" className="col-2 text-light text-decoration-none">

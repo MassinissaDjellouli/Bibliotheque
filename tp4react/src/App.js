@@ -13,15 +13,27 @@ function App() {
     let data = await request.json();
     return data;
   }
+  const fetchUsers = async () => {
+    let request = await fetch("http://localhost:8080/users")
+    let data = await request.json();
+    return data;
+  }
   const [employees, setEmployes] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const getEmployees = async () => {
       const emp = await fetchEmployees();
       setEmployes(emp);
     }
+    const getUsers = async () => {
+      const user = await fetchUsers()
+      setUsers(users);
+    }
     getEmployees();
+    getUsers();
   }, [])
+
   return (
     <>
       <MainHeader />
