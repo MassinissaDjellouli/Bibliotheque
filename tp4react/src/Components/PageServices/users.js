@@ -13,9 +13,7 @@ export const Users = () => {
                         <button className="col-12 btn btn-secondary m-3 py-2">Page d'accueil</button>
                     </Link>
             </div>
-            <Routes>
-              <Route path="" element={<UserHome />}></Route>
-            </Routes>
+
         </>
     )
 }
