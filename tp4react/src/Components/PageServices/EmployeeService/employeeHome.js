@@ -15,7 +15,10 @@ export const EmployeHome = ({employes}) => {
     return (
         <>
             <EmployeHeader />
-            {employee.username}
+            <div className='container'>
+                <h3>Bienvenue {employee.username}</h3>
+                
+            </div>
         </>
     )
 }
