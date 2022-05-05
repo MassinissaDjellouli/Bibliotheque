@@ -2,9 +2,10 @@ import './App.css';
 import { Employes } from './Components/PageServices/employes';
 import { Users } from './Components/PageServices/users';
 import { Home } from './Components/home'
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import { EmployeHome } from './Components/PageServices/EmployeeService/employeeHome';
+import { MainHeader } from './Components/Headers/mainHeader';
 
 function App() {
   const fetchEmployees = async () => {
@@ -23,9 +24,7 @@ function App() {
   }, [])
   return (
     <>
-      <Link className='text-decoration-none' to="/">
-        <h1 className="bg-dark text-light  text-center py-4 m-0">Bibliothèque de JavaTown</h1>
-      </Link>
+      <MainHeader />
       <Routes>
         <Route path="" element={<Home />}></Route>
         <Route path="users" element={<Users />}></Route>
