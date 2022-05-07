@@ -8,8 +8,32 @@ import { EmployeHome } from './Components/PageServices/EmployeeService/employeeH
 import { MainHeader } from './Components/Headers/mainHeader';
 import { UserHome } from './Components/PageServices/UserService/userHome';
 import { NewUser } from './Components/PageServices/UserService/newUser';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+  const [employees, setEmployes] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  let navigate = useNavigate();
+
+  const submit = async (client) => {
+    let request = await fetch("http://localhost:8080/newUser",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(client)
+    })
+    if(request.ok){
+        navigate("/users")
+        getUsers();
+    }else{
+      const errorJson = await request.json()
+      const errors = errorJson.errors;
+      console.log(errors)
+    }
+}
+
   const fetchEmployees = async () => {
     let request = await fetch("http://localhost:8080/employees")
     let data = await request.json();
@@ -20,18 +44,16 @@ function App() {
     let data = await request.json();
     return data;
   }
-  const [employees, setEmployes] = useState([]);
-  const [users, setUsers] = useState([]);
 
+  const getEmployees = async () => {
+    const emp = await fetchEmployees();
+    setEmployes(emp);
+  }
+  const getUsers = async () => {
+    const users = await fetchUsers()
+    setUsers(users);
+  }
   useEffect(() => {
-    const getEmployees = async () => {
-      const emp = await fetchEmployees();
-      setEmployes(emp);
-    }
-    const getUsers = async () => {
-      const users = await fetchUsers()
-      setUsers(users);
-    }
     getEmployees();
     getUsers();
   }, [])
@@ -45,10 +67,8 @@ function App() {
         <Route path="users/:id" element={<UserHome users={users}/>}></Route>
         <Route path="employes" element={<Employes employes={employees} />}></Route>
         <Route path="employes/:id" element={<EmployeHome employes={employees} />}></Route>
-        <Route path="newUser" element={<NewUser />}></Route>
+        <Route path="newUser" element={<NewUser submit={submit} />}></Route>
       </Routes>
-
-
     </>
   );
 }

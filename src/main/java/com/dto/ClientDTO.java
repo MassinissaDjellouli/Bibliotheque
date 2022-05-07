@@ -18,11 +18,11 @@ public class ClientDTO {
     private String clientNumber;
     @NotBlank
     @NotNull
-    @Size(min = 2)
+    @Size(min = 2, max = 45)
     private String clientName;
     @NotNull
     @NotBlank
-    @Size(min = 5)
+    @Size(min = 5 ,max = 200)
     private String clientAdress;
     @NotNull
     @NotBlank
