@@ -1,23 +1,20 @@
 package com.service;
 
+import com.dto.ModelToDTOConverter;
 import com.dto.*;
 import com.models.Emprunt;
 import com.models.documents.Documents;
-import com.models.documents.Livre;
-import com.models.documents.Media;
 import com.models.enums.Genres;
 import com.models.users.Client;
 import com.repository.ClientRepository;
 import com.repository.DocumentRepository;
 import com.repository.EmpruntRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -43,19 +40,19 @@ public class ClientService {
     }
 
     public List<DocumentDTO> rechercheParTitre(String titre) {
-        return ModelToDTOTransformer.documentListToDTO(handleOptionalList(documentRepository.findAllByTitreContaining(titre)));
+        return ModelToDTOConverter.documentListToDTO(handleOptionalList(documentRepository.findAllByTitreContaining(titre)));
     }
 
     public List<DocumentDTO> rechercheParAuteur(String auteur) {
-        return ModelToDTOTransformer.documentListToDTO(handleOptionalList(documentRepository.findAllByAuteur(auteur)));
+        return ModelToDTOConverter.documentListToDTO(handleOptionalList(documentRepository.findAllByAuteur(auteur)));
     }
 
     public List<DocumentDTO> rechercheParAnne(int anne) {
-        return ModelToDTOTransformer.documentListToDTO(handleOptionalList(documentRepository.findAllByAnneeDePublication(anne)));
+        return ModelToDTOConverter.documentListToDTO(handleOptionalList(documentRepository.findAllByAnneeDePublication(anne)));
     }
 
     public List<DocumentDTO> rechercheParGenre(Genres genre) {
-        return ModelToDTOTransformer.documentListToDTO(handleOptionalList(documentRepository.findAllByGenre(genre)));
+        return ModelToDTOConverter.documentListToDTO(handleOptionalList(documentRepository.findAllByGenre(genre)));
     }
 
     @Transactional
@@ -104,13 +101,13 @@ public class ClientService {
     public List<DateDTO> getDatesDeRetour(int clientId) {
         Client client = handleOptional(clientRepository.findByIdWithEmprunts(clientId));
         List<Emprunt> emprunts = client.getEmprunts();
-        return ModelToDTOTransformer.empruntListToDateDtoList(emprunts);
+        return ModelToDTOConverter.empruntListToDateDtoList(emprunts);
     }
 
     public List<EmpruntDTO> getEmprunts(int clientId) {
         Client client = handleOptional(clientRepository.findByIdWithEmprunts(clientId));
         List<Emprunt> emprunts = client.getEmprunts();
-        return ModelToDTOTransformer.empruntListToEmpruntsDtoList(emprunts);
+        return ModelToDTOConverter.empruntListToEmpruntsDtoList(emprunts);
     }
 
     private <T> List<T> handleOptionalList(Optional<List<T>> optional) throws IllegalArgumentException{

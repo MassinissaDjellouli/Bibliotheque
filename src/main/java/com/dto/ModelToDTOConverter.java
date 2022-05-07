@@ -1,5 +1,6 @@
 package com.dto;
 
+import com.dto.*;
 import com.models.Emprunt;
 import com.models.documents.Documents;
 import com.models.documents.Livre;
@@ -11,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelToDTOTransformer {
+public class ModelToDTOConverter {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static EmpruntDTO empruntToDTO(Emprunt emprunt){

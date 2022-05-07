@@ -2,14 +2,12 @@ package com.service;
 
 
 import com.dto.ClientDTO;
-import com.dto.DocumentDTO;
 import com.dto.EmployeDTO;
-import com.dto.ModelToDTOTransformer;
+import com.dto.ModelToDTOConverter;
 import com.models.documents.Livre;
 import com.models.documents.Media;
 import com.models.enums.Genres;
 import com.models.enums.MediaType;
-import com.models.users.Client;
 import com.models.users.Employe;
 import com.repository.ClientRepository;
 import com.repository.DocumentRepository;
@@ -57,7 +55,7 @@ public class EmployeeService {
         return employe.getId();
     }
     public List<ClientDTO> getClientList(){
-        return ModelToDTOTransformer.clientListToClientListDTO(clientRepository.findAll());
+        return ModelToDTOConverter.clientListToClientListDTO(clientRepository.findAll());
     }
 
     private <T> List<T> handleOptionalList(Optional<List<T>> optional) throws IllegalArgumentException{
@@ -71,6 +69,6 @@ public class EmployeeService {
     }
 
     public List<EmployeDTO> getEmployeList() {
-        return ModelToDTOTransformer.employeListToEmployeListDTO(employeeRepository.findAll());
+        return ModelToDTOConverter.employeListToEmployeListDTO(employeeRepository.findAll());
     }
 }
