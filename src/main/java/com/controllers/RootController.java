@@ -1,25 +1,11 @@
 package com.controllers;
 
-import com.dto.ClientDTO;
-import com.dto.EmployeDTO;
-import com.dto.LivreDTO;
-import com.dto.MediaDTO;
-import com.form.ClientForm;
-import com.form.EmpruntForm;
-import com.form.RetourForm;
-import com.models.documents.Documents;
-import com.models.enums.Genres;
-import com.models.enums.MediaType;
-import com.models.users.Client;
-import com.models.users.Employe;
+import com.dto.*;
 import com.service.ClientService;
 import com.service.EmployeeService;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -45,6 +31,15 @@ public class RootController {
     @CrossOrigin(origins = "http://localhost:3000")
     public List<EmployeDTO> getEmployes(){
         return employeeService.getEmployeList();
+    }
+    @PostMapping("/newUser")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<ClientDTO> createUser(@RequestBody @Valid ClientDTO clientDTO){
+        int clientId = clientService.saveClient(clientDTO.getClientName(),clientDTO.getClientAdress(),clientDTO.getClientPhone());
+        clientDTO.setClientNumber(Integer.toString(clientId));
+        return clientId != 0 ?
+                ResponseEntity.status(HttpStatus.CREATED).body(clientDTO)
+                : ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
 //    @GetMapping("/newLivre")
 //    public String getNewLivre(Model model){
