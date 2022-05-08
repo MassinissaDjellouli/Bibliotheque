@@ -78,6 +78,7 @@ public class ModelToDTOConverter {
                 .returnDate(emprunt.getReturnDateTime().format(DATE_TIME_FORMATTER))
                 .clientName(emprunt.getClient().getClientName())
                 .documentName(emprunt.getDocument().getTitre())
+                .returned(Boolean.toString(emprunt.isReturned()))
                 .build();
     }
     public static List<EmpruntDTO> empruntListToEmpruntsDtoList(List<Emprunt> emprunts) {
