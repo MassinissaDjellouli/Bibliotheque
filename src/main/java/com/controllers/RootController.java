@@ -66,6 +66,18 @@ public class RootController {
         System.out.println(recherche);
         return clientService.rechercheParGenre(Genres.valueOf(recherche));
     }
+    @PostMapping("/user/{clientNumber}/emprunter/{documentId}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<List<EmpruntDTO>> emprunter(@PathVariable String clientNumber,
+                                                @PathVariable String documentId){
+        int empruntId = clientService.emprunter(Integer.parseInt(clientNumber),Integer.parseInt(documentId));
+        System.out.println(clientNumber + " " + documentId);
+        return empruntId != 0?
+                ResponseEntity.status(HttpStatus.CREATED).body(
+                        clientService.getEmprunts(Integer.parseInt(clientNumber))
+                ):
+                ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
 //    @GetMapping("/newLivre")
 //    public String getNewLivre(Model model){
 //        LivreDTO livreDTO = new LivreDTO();
