@@ -44,24 +44,18 @@ function App() {
     })
     return user;
   }
-
-  const fetchEmployees = async () => {
-    let request = await fetch("http://localhost:8080/employees")
-    let data = await request.json();
-    return data;
-  }
-  const fetchUsers = async () => {
-    let request = await fetch("http://localhost:8080/users")
+  const getRequest = async (path) => {
+    let request = await fetch("http://localhost:8080" + path)
     let data = await request.json();
     return data;
   }
 
   const getEmployees = async () => {
-    const emp = await fetchEmployees();
+    const emp = await getRequest("/employees");
     setEmployes(emp);
   }
   const getUsers = async () => {
-    const users = await fetchUsers()
+    const users = await getRequest("/users")
     setUsers(users);
   }
   useEffect(() => {
@@ -76,7 +70,7 @@ function App() {
         <Route path="" element={<Home />}></Route>
         <Route path="users" element={<Users users={users} />}></Route>
         <Route path="users/:id" element={<UserHome getUser={getUser} />}></Route>
-        <Route path="users/:id/emprunter" element={<Emprunt getUser={getUser}/>}></Route>
+        <Route path="users/:id/emprunter" element={<Emprunt getUser={getUser} />}></Route>
         <Route path="employes" element={<Employes employes={employees} />}></Route>
         <Route path="employes/:id" element={<EmployeHome employes={employees} />}></Route>
         <Route path="newUser" element={<NewUser submit={submitNewUser} />}></Route>
