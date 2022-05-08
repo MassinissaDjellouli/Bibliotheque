@@ -1,6 +1,7 @@
 package com.controllers;
 
 import com.dto.*;
+import com.models.enums.Genres;
 import com.service.ClientService;
 import com.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,24 @@ public class RootController {
     public List<DocumentDTO> getRechercheTitre(@PathVariable String recherche){
         System.out.println(recherche);
         return clientService.rechercheParTitre(recherche);
+    }
+    @GetMapping("/rechercheAuteur/{recherche}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<DocumentDTO> getRechercheAuteur(@PathVariable String recherche){
+        System.out.println(recherche);
+        return clientService.rechercheParAuteur(recherche);
+    }
+    @GetMapping("/rechercheAnne/{recherche}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<DocumentDTO> getRechercheAnne(@PathVariable String recherche){
+        System.out.println(recherche);
+        return clientService.rechercheParAnne(Integer.parseInt(recherche));
+    }
+    @GetMapping("/rechercheGenre/{recherche}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<DocumentDTO> getRechercheGenre(@PathVariable String recherche){
+        System.out.println(recherche);
+        return clientService.rechercheParGenre(Genres.valueOf(recherche));
     }
 //    @GetMapping("/newLivre")
 //    public String getNewLivre(Model model){
