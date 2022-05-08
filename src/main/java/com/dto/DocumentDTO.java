@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public abstract class DocumentDTO {
     final static int CURRENT_YEAR = 2022;
+    private String documentId;
     @NotNull
     @NotBlank
     @Size(min=3,max = 200)
