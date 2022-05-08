@@ -76,7 +76,7 @@ function App() {
         <Route path="" element={<Home />}></Route>
         <Route path="users" element={<Users users={users} />}></Route>
         <Route path="users/:id" element={<UserHome getUser={getUser} />}></Route>
-        <Route path="users/:id/emprunter" element={<Emprunt getUser={getUser} />}></Route>
+        <Route path="users/:id/emprunter" element={<Emprunt getUser={getUser}/>}></Route>
         <Route path="employes" element={<Employes employes={employees} />}></Route>
         <Route path="employes/:id" element={<EmployeHome employes={employees} />}></Route>
         <Route path="newUser" element={<NewUser submit={submitNewUser} />}></Route>

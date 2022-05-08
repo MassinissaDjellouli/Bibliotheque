@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { DocumentList } from './Documents/documentList';
 import { useState } from 'react'
 
-export const Emprunt = ({ getUser }) => {
+export const Emprunt = ({ getUser,emprunter }) => {
     const [recherche, setRecherche] = useState("");
     //0 = titre, 1 = auteur, 2 = année, 3 = genre
     const [rechercheType, setRechercheType] = useState(0);
@@ -129,7 +129,7 @@ export const Emprunt = ({ getUser }) => {
                     </div>
                 </form>
                 
-                <DocumentList documents={documents} />
+                <DocumentList documents={documents} emprunter={emprunter} user={user}/>
 
             </div>
         </>
