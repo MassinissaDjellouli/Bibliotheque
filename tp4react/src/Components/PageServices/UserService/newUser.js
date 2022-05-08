@@ -1,6 +1,5 @@
 import React from 'react'
 import { UserHeader } from '../../Headers/usersHeader'
-import { useParams } from 'react-router-dom';
 import { UserCreationForm } from './userCreationForm';
 
 export const NewUser = ({submit}) => {
