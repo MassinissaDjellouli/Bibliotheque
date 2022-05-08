@@ -16,14 +16,20 @@ export const DocumentCard = ({document,index}) =>{
             </>
         )
     }
+    const getResultNb = () =>{
+        if(index > -1){
+            return "Resultat #" + (index+1) + ": "
+        }
+        return "";
+    }
     return(    
         <div className="card">
                 <div className="card-header">
                     <h3 className="card-title text-center">
-                        {"Resultat #" + (index+1) + ": " + document.titre}
+                        {getResultNb() + document.titre}
                     </h3>
                 </div>
-                <div className="card-body">
+                <div className="card-body text-start">
                     <h5>Auteur: {document.auteur}</h5>
                     <h6>Année de publication: {document.anneeDePublication}</h6>
                     <p>Editeur: {document.editeur}</p>
