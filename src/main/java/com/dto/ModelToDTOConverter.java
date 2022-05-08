@@ -23,6 +23,7 @@ public class ModelToDTOConverter {
     }
     public static LivreDTO LivreToDTO(Livre livre){
         return LivreDTO.builder()
+                .documentId(Integer.toString(livre .getDocumentId()))
                 .titre(livre.getTitre())
                 .auteur(livre.getAuteur())
                 .editeur(livre.getEditeur())
@@ -35,6 +36,7 @@ public class ModelToDTOConverter {
     }
     public static MediaDTO mediaToDTO(Media media){
         return MediaDTO.builder()
+                .documentId(Integer.toString(media.getDocumentId()))
                 .titre(media.getTitre())
                 .auteur(media.getAuteur())
                 .editeur(media.getEditeur())
