@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -62,7 +63,14 @@ public class ClientService {
             throw new IllegalArgumentException();
         }
         Client client = handleOptional(clientRepository.findById(cliId));
-        if (client.getEmprunts().size() == 3){
+        List<Emprunt> empruntList = client.getEmprunts();
+        List<Emprunt> nonRetournes = new ArrayList<>();
+        for(Emprunt emprunt : empruntList){
+            if(!emprunt.isReturned()){
+                nonRetournes.add(emprunt);
+            }
+        }
+        if (nonRetournes.size() == 3){
             throw new IllegalArgumentException();
         }
         Emprunt emprunt = Emprunt.builder()
