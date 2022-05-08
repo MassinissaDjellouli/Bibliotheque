@@ -11,4 +11,5 @@ public class EmpruntDTO {
     private String empruntDate;
     private String returnDate;
     private String documentName;
+    private String returned;
 }
