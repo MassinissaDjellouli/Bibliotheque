@@ -37,9 +37,9 @@ public class EmployeeService {
         return livre.getDocumentId();
     }
 
-    public int saveMedia(String titre, String auteur, String editeur, int anne, int tmpEmprunt, int nbExemplaires, String duree, MediaType type) {
+    public int saveMedia(String titre, String auteur, String editeur, int anne, int nbExemplaires, String duree, MediaType type) {
         Media media = Media.builder().titre(titre).auteur(auteur).editeur(editeur)
-                .anneeDePublication(anne).tempsEmprunt(tmpEmprunt)
+                .anneeDePublication(anne).tempsEmprunt(Media.setMediaTempsEmprunts(type))
                 .nbExemplaires(nbExemplaires).duree(duree).type(type).build();
         documentRepository.save(media);
         System.out.println(media.getDocumentId());

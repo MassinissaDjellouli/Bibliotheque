@@ -33,7 +33,7 @@ public class Main implements CommandLineRunner {
         int liId = employeeService.saveLivre("titre", "auteur numero 2", "editeur", 2000, 3, 30, 100, Genres.roman);
         int li2Id = employeeService.saveLivre("titre numero 2", "auteur", "editeur", 2000, 3, 30, 100, Genres.roman);
         //Todo Ajout d'un media:
-        int meId = employeeService.saveMedia("titre","auteur","editeur",2000,3,30,"40min", MediaType.dvd);
+        int meId = employeeService.saveMedia("titre","auteur","editeur",2000,30,"40min", MediaType.dvd);
         //Todo Recherche de titre:
         List<DocumentDTO> livres1 = clientService.rechercheParTitre("titre");
         //Todo Recherche de auteur:
