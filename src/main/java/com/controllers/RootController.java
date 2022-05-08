@@ -41,6 +41,12 @@ public class RootController {
                 ResponseEntity.status(HttpStatus.CREATED).body(clientDTO)
                 : ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
+    @GetMapping("/rechercheTitre/{recherche}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<DocumentDTO> getRechercheTitre(@PathVariable String recherche){
+        System.out.println(recherche);
+        return clientService.rechercheParTitre(recherche);
+    }
 //    @GetMapping("/newLivre")
 //    public String getNewLivre(Model model){
 //        LivreDTO livreDTO = new LivreDTO();
