@@ -16,7 +16,9 @@ function App() {
   const [users, setUsers] = useState([]);
 
   let navigate = useNavigate();
-
+  const getDocuments = async (recherche,typeRecherche) => {
+    
+  }
   const submitNewUser = async (client) => {
     let request = await fetch("http://localhost:8080/newUser", {
       method: "POST",
@@ -75,7 +77,7 @@ function App() {
         <Route path="" element={<Home />}></Route>
         <Route path="users" element={<Users users={users} />}></Route>
         <Route path="users/:id" element={<UserHome getUser={getUser} />}></Route>
-        <Route path="users/:id/emprunter" element={<Emprunt getUser={getUser}/>}></Route>
+        <Route path="users/:id/emprunter" element={<Emprunt getUser={getUser} getDocuments={getDocuments}/>}></Route>
         <Route path="employes" element={<Employes employes={employees} />}></Route>
         <Route path="employes/:id" element={<EmployeHome employes={employees} />}></Route>
         <Route path="newUser" element={<NewUser submit={submitNewUser} />}></Route>
