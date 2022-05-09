@@ -78,9 +78,17 @@ public class RootController {
                 ):
                 ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
+    @PostMapping("/user/{clientNumber}/retourner/{empruntId}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Boolean> retourner(@PathVariable String clientNumber,
+                                                @PathVariable String empruntId){
+        clientService.retourner(Integer.parseInt(clientNumber),Integer.parseInt(empruntId));
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
     @GetMapping("/users/{clientNumber}/emprunts")
     @CrossOrigin(origins = "http://localhost:3000")
     public List<EmpruntDTO> getEmprunts(@PathVariable String clientNumber){
         return clientService.getEmprunts(Integer.parseInt(clientNumber));
     }
+
 }
