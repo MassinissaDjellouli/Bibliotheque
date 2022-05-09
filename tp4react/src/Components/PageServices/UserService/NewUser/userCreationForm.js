@@ -23,7 +23,7 @@ export const UserCreationForm = ({ submit }) => {
             <div>
                 <label className='form-label'>Adresse</label>
                 <input className='form-control ' type="text" placeholder="5-200 characters"
-                    required minLength={2} maxLength={200}
+                    required minLength={5} maxLength={200}
                     onChange={(e) => { setAdress(e.target.value) }} />
             </div>
             <div>

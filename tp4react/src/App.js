@@ -26,6 +26,7 @@ function App() {
   }
   const getUsers = async () => {
     const users = await getRequest("/users")
+    console.log(users)
     setUsers(users);
   }
 
@@ -54,7 +55,8 @@ function App() {
   }, [])
 
   const submitNewUser = async (client) => {
-    postRequest("/newUser", client, "/users")
+    await postRequest("/newUser", client, "/users")
+    getUsers();
   }
   const submitNewLivre = async (livre) => {
     postRequest("/newLivre", livre, "/employes")
