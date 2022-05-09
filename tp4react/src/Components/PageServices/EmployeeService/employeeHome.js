@@ -44,8 +44,10 @@ export const EmployeHome = ({employes}) => {
                         </h2>
                         <div id="collapseRetour" class="accordion-collapse collapse" 
                         data-bs-parent="#accordeon">
-                            <div class="accordion-body">
-
+                            <div class="accordion-body d-flex justify-content-center">
+                            <Link to="/employes/newMedia">
+                                    <button className='btn btn-primary'>Nouveau média</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
