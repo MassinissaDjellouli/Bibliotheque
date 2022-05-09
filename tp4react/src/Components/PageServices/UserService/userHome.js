@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { UserHeader } from '../../Headers/usersHeader'
 import { Link, Route, Routes, useParams } from 'react-router-dom';
-import { EmpruntList } from './listeEmprunts';
+import { EmpruntList } from './Emprunts/listeEmprunts';
+import { Retour } from './Retours/retours';
 
 
 export const UserHome = ({ getUser }) => {
@@ -9,15 +10,16 @@ export const UserHome = ({ getUser }) => {
     useEffect(() => {
         getEmprunts(user);
     })
-    const getRequest = async (path) => {
-        let request = await fetch("http://localhost:8080" + path)
-        let data = await request.json();
-        return data;
-      }
 
     const getEmprunts = async (user) => {
         let data = await getRequest("/users/" + user.clientNumber + "/emprunts");
         setEmprunts(data);
+    }
+
+    const getRequest = async (path) => {
+        let request = await fetch("http://localhost:8080" + path)
+        let data = await request.json();
+        return data;
       }
 
     let clientNumber = useParams().id;
@@ -35,7 +37,7 @@ export const UserHome = ({ getUser }) => {
                         <h2 className="accordion-header" id="headingOne">
                             <button className="accordion-button collapsed" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseEmprunt">
-                                Emprunter un livre
+                                Emprunter un document
                             </button>
                         </h2>
                         <div id="collapseEmprunt" className="accordion-collapse collapse"
@@ -52,14 +54,16 @@ export const UserHome = ({ getUser }) => {
                         <h2 className="accordion-header" id="headingTwo">
                             <button className="accordion-button collapsed" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseRetour">
-                                Retourner un livre
+                                Retourner un document
 
                             </button>
                         </h2>
                         <div id="collapseRetour" className="accordion-collapse collapse"
                             data-bs-parent="#accordeon">
-                            <div className="accordion-body">
-
+                            <div className="accordion-body d-flex justify-content-center">
+                                <Link to="retourner">
+                                        <button className='btn btn-danger'>Retourner</button>
+                                </Link>
                             </div>
                         </div>
                     </div>

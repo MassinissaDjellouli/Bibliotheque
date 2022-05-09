@@ -1,5 +1,5 @@
 import './App.css';
-import { Employes } from './Components/PageServices/employes';
+import { Employes } from './Components/PageServices/employes'; 
 import { Users } from './Components/PageServices/users';
 import { Home } from './Components/home'
 import { Routes, Route } from 'react-router-dom';
@@ -7,9 +7,10 @@ import { useState, useEffect } from 'react'
 import { EmployeHome } from './Components/PageServices/EmployeeService/employeeHome';
 import { MainHeader } from './Components/Headers/mainHeader';
 import { UserHome } from './Components/PageServices/UserService/userHome';
-import { NewUser } from './Components/PageServices/UserService/newUser';
+import { NewUser } from './Components/PageServices/UserService/NewUser/newUser';
 import { useNavigate } from 'react-router-dom';
-import { Emprunt } from './Components/PageServices/UserService/emprunt';
+import { Emprunt } from './Components/PageServices/UserService/Emprunts/emprunt';
+import { Retour } from './Components/PageServices/UserService/Retours/retours';
 
 function App() {
   const [employees, setEmployes] = useState([]);
@@ -71,6 +72,7 @@ function App() {
         <Route path="users" element={<Users users={users} />}></Route>
         <Route path="users/:id" element={<UserHome getUser={getUser} />}></Route>
         <Route path="users/:id/emprunter" element={<Emprunt getUser={getUser} />}></Route>
+        <Route path="users/:id/retourner" element={<Retour getUser={getUser}/>}></Route>
         <Route path="employes" element={<Employes employes={employees} />}></Route>
         <Route path="employes/:id" element={<EmployeHome employes={employees} />}></Route>
         <Route path="newUser" element={<NewUser submit={submitNewUser} />}></Route>
