@@ -42,6 +42,24 @@ public class RootController {
                 ResponseEntity.status(HttpStatus.CREATED).body(clientDTO)
                 : ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
+    @PostMapping("/newLivre")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<LivreDTO> createLivre(@RequestBody @Valid LivreDTO livreDTO){
+        int livreId = employeeService.saveLivre(
+                livreDTO.getTitre(),
+                livreDTO.getAuteur(),
+                livreDTO.getEditeur(),
+                Integer.parseInt(livreDTO.getAnneeDePublication()),
+                Integer.parseInt(livreDTO.getTempsEmprunt()),
+                Integer.parseInt(livreDTO.getNbExemplaires()),
+                Integer.parseInt(livreDTO.getNbPages()),
+                Genres.valueOf(livreDTO.getGenre())
+        );
+        livreDTO.setDocumentId(Integer.toString(livreId));
+        return livreId != 0 ?
+                ResponseEntity.status(HttpStatus.CREATED).body(livreDTO)
+                : ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
     @GetMapping("/rechercheTitre/{recherche}")
     @CrossOrigin(origins = "http://localhost:3000")
     public List<DocumentDTO> getRechercheTitre(@PathVariable String recherche){
