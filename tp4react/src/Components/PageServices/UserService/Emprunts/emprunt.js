@@ -1,7 +1,7 @@
 import React from 'react'
-import { UserHeader } from '../../Headers/usersHeader'
+import { UserHeader } from '../../../Headers/usersHeader'
 import { useParams } from 'react-router-dom';
-import { DocumentList } from './Documents/documentList';
+import { DocumentList } from '../Documents/documentList';
 import { useState } from 'react'
 
 export const Emprunt = ({ getUser,emprunter }) => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { UserHeader } from '../../Headers/usersHeader'
+import { UserHeader } from '../../../Headers/usersHeader'
 import { UserCreationForm } from './userCreationForm';
 
 export const NewUser = ({submit}) => {

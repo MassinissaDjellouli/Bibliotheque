@@ -1,5 +1,5 @@
 import React from "react";
-import { EmpruntCard } from "../empruntCard";
+import { EmpruntCard } from "./empruntCard";
 export const EmpruntList = ({emprunts}) => {
     if(emprunts.length < 1){
         return <h4 className="text-danger">Aucun emprunts trouvés</h4>
