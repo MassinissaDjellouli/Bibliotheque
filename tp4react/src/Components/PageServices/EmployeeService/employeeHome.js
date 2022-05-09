@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { EmployeHeader } from '../../Headers/employeHeader';
 
@@ -27,8 +27,10 @@ export const EmployeHome = ({employes}) => {
                         </h2>
                         <div id="collapseEmprunt" class="accordion-collapse collapse"
                         data-bs-parent="#accordeon">
-                            <div class="accordion-body">
-
+                            <div class="accordion-body d-flex justify-content-center">
+                                <Link to="/employes/newLivre">
+                                    <button className='btn btn-primary'>Nouveau livre</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
