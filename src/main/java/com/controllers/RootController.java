@@ -1,7 +1,9 @@
 package com.controllers;
 
 import com.dto.*;
+import com.models.documents.Media;
 import com.models.enums.Genres;
+import com.models.enums.MediaType;
 import com.service.ClientService;
 import com.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,21 @@ public class RootController {
         livreDTO.setDocumentId(Integer.toString(livreId));
         return livreId != 0 ?
                 ResponseEntity.status(HttpStatus.CREATED).body(livreDTO)
+                : ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    }
+    @PostMapping("/newMedia")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<MediaDTO> createMedia(@RequestBody @Valid MediaDTO mediaDTO){
+        int mediaId = employeeService.saveMedia(mediaDTO.getTitre(),
+                mediaDTO.getAuteur(),
+                mediaDTO.getEditeur(),
+                Integer.parseInt(mediaDTO.getAnneeDePublication()),
+                Integer.parseInt(mediaDTO.getNbExemplaires()),
+                (mediaDTO.getDuree()),
+                MediaType.valueOf(mediaDTO.getType()));
+        mediaDTO.setDocumentId(Integer.toString(mediaId));
+        return mediaId != 0 ?
+                ResponseEntity.status(HttpStatus.CREATED).body(mediaDTO)
                 : ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
     @GetMapping("/rechercheTitre/{recherche}")
