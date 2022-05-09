@@ -1,10 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { UserHome } from './UserService/userHome';
-import { Routes, Route } from 'react-router-dom';
 import { UserHeader } from '../Headers/usersHeader';
 import { UserList } from './UserService/userList';
-import { NewUser } from './UserService/newUser';
 
 export const Users = ({users}) => {
 
