@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-export const UserCard = ({user}) =>{
-    return(    
+
+export const UserCard = ({ user }) => {
+    return (
         <Link to={user.clientNumber} className="text-decoration-none text-dark text-center">
             <div className="card">
                 <div className="card-header">
@@ -9,6 +10,5 @@ export const UserCard = ({user}) =>{
                 </div>
             </div>
         </Link>
-    ) 
-
+    )
 }

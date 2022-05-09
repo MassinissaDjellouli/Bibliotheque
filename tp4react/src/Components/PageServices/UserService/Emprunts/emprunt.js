@@ -4,10 +4,9 @@ import { useParams } from 'react-router-dom';
 import { DocumentList } from '../Documents/documentList';
 import { useState } from 'react'
 
-export const Emprunt = ({ getUser,emprunter }) => {
+export const Emprunt = ({ getUser, emprunter, getRequest }) => {
     const [recherche, setRecherche] = useState("");
-    const [emprunts,setEmprunts] = useState([]);
-
+    const [emprunts, setEmprunts] = useState([]);
     //0 = titre, 1 = auteur, 2 = année, 3 = genre
     const [rechercheType, setRechercheType] = useState(0);
     const [documents, setDocuments] = useState([]);
@@ -20,20 +19,15 @@ export const Emprunt = ({ getUser,emprunter }) => {
         let data = await getRequest("/users/" + user.clientNumber + "/emprunts");
         setEmprunts(data);
     }
-    
-    const getRequest = async (path) => {
-        let request = await fetch("http://localhost:8080" + path)
+
+    const fetchAndSetDocs = async (url) => {
+        let request = await fetch(url)
         let data = await request.json();
-        return data;
+        setDocuments(data);
     }
-    
+
     const getDocuments = (e) => {
         e.preventDefault();
-        const fetchAndSetDocs = async (url) => {
-            let request = await fetch(url)
-            let data = await request.json();
-            setDocuments(data);
-        }
         let url;
         switch (rechercheType) {
             case 0:
@@ -51,43 +45,48 @@ export const Emprunt = ({ getUser,emprunter }) => {
         }
         fetchAndSetDocs(url);
     }
-    let clientNumber = useParams().id;
-    let user = getUser(clientNumber);
-    if (user == undefined) {
-        return <></>
-    }
-    const getEmpruntsLength = () =>{
+
+    const getEmpruntsLength = () => {
         let nonRetourne = [];
+
         emprunts.forEach(element => {
-            if(element.returned == "false"){
+            if (element.returned == "false") {
                 nonRetourne.push(element);
             }
         });
 
         return nonRetourne.length;
-    } 
+    }
+
     const getInput = () => {
         switch (rechercheType) {
             case 0:
                 return <input className='form-control' type="text" placeholder='Rechercher un document'
-                    onChange={(e) => { setRecherche(e.target.value) }} required></input>
-
+                    onChange={(e) => { setRecherche(e.target.value) }} required />
             case 1:
                 return <input className='form-control' type="text" placeholder='Rechercher un document par auteur'
-                    onChange={(e) => { setRecherche(e.target.value) }} required></input>
+                    onChange={(e) => { setRecherche(e.target.value) }} required />
             case 2:
                 return <input className='form-control' type="number" placeholder='Rechercher un document par année'
-                    onChange={(e) => { setRecherche(e.target.value) }} required></input>
+                    onChange={(e) => { setRecherche(e.target.value) }} required />
             case 3:
-                return <select className='form-select'
-                    onChange={(e) => { setRecherche(e.target.value); console.log(recherche) }} required>
-                    <option value="" selected disabled>Choisir une valeur</option>
-                    <option value={"roman"}>Roman</option>
-                    <option value={"manuel"}>Manuel</option>
-                    <option value={"magazine"}>Magazine</option>
-                    <option value={"etude"}>Etude</option>
-                </select >
+                return (
+                    <select className='form-select' defaultValue={""}
+                        onChange={(e) => { setRecherche(e.target.value); console.log(recherche) }} required>
+                        <option value="" disabled>Choisir une valeur</option>
+                        <option value={"roman"}>Roman</option>
+                        <option value={"manuel"}>Manuel</option>
+                        <option value={"magazine"}>Magazine</option>
+                        <option value={"etude"}>Etude</option>
+                    </select >)
         }
+    }
+
+    let clientNumber = useParams().id;
+    let user = getUser(clientNumber);
+
+    if (user == undefined) {
+        return <></>
     }
 
     return (
@@ -114,7 +113,7 @@ export const Emprunt = ({ getUser,emprunter }) => {
                         {getInput()}
                         <button className='btn btn-outline-secondary' >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 
                                 1.398h-.001c.03.04.062.078.098.115l3.85
                                 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 
@@ -126,39 +125,38 @@ export const Emprunt = ({ getUser,emprunter }) => {
                     </div>
                     <div className='input-group d-flex justify-content-center my-3'>
                         <p>Type de recherche:</p>
-                        <div class="form-check mx-4 col-1">
-                            <input class="form-check-input" defaultChecked type="radio" name="typeRecherche" id="Titre"
+                        <div className="form-check mx-4 col-1">
+                            <input className="form-check-input" defaultChecked type="radio"
+                                name="typeRecherche" id="Titre"
                                 onChange={() => { setRechercheType(0); }} />
-                            <label class="form-check-label" for="Titre">
+                            <label className="form-check-label" htmlFor="Titre">
                                 Titre
                             </label>
                         </div>
-                        <div class="form-check mx-4 col-1">
-                            <input class="form-check-input" type="radio" name="typeRecherche" id="Auteur"
+                        <div className="form-check mx-4 col-1">
+                            <input className="form-check-input" type="radio" name="typeRecherche" id="Auteur"
                                 onChange={() => { setRechercheType(1); }} />
-                            <label class="form-check-label" for="Auteur">
+                            <label className="form-check-label" htmlFor="Auteur">
                                 Auteur
                             </label>
                         </div>
-                        <div class="form-check mx-4 col-1">
-                            <input class="form-check-input" type="radio" name="typeRecherche" id="Anne"
+                        <div className="form-check mx-4 col-1">
+                            <input className="form-check-input" type="radio" name="typeRecherche" id="Anne"
                                 onChange={() => { setRechercheType(2); }} />
-                            <label class="form-check-label" for="Anne">
+                            <label className="form-check-label" htmlFor="Anne">
                                 Année
                             </label>
                         </div>
-                        <div class="form-check mx-4 col-1">
-                            <input class="form-check-input" type="radio" name="typeRecherche" id="Genre"
+                        <div className="form-check mx-4 col-1">
+                            <input className="form-check-input" type="radio" name="typeRecherche" id="Genre"
                                 onChange={() => { setRechercheType(3); }} />
-                            <label class="form-check-label" for="Genre" >
+                            <label className="form-check-label" htmlFor="Genre" >
                                 Genre
                             </label>
                         </div>
                     </div>
                 </form>
-                
-                <DocumentList documents={documents} emprunter={emprunter} user={user} empruntLength={getEmpruntsLength()}/>
-
+                <DocumentList documents={documents} emprunter={emprunter} user={user} empruntLength={getEmpruntsLength()} />
             </div>
         </>
     )

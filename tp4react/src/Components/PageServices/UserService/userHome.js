@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { UserHeader } from '../../Headers/usersHeader'
-import { Link, Route, Routes, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { EmpruntList } from './Emprunts/listeEmprunts';
-import { Retour } from './Retours/retours';
 
+export const UserHome = ({ getUser, getRequest }) => {
+    const [emprunts, setEmprunts] = useState([]);
 
-export const UserHome = ({ getUser }) => {
-    const [emprunts,setEmprunts] = useState([]);
     useEffect(() => {
         getEmprunts(user);
     })
@@ -16,14 +15,9 @@ export const UserHome = ({ getUser }) => {
         setEmprunts(data);
     }
 
-    const getRequest = async (path) => {
-        let request = await fetch("http://localhost:8080" + path)
-        let data = await request.json();
-        return data;
-      }
-
     let clientNumber = useParams().id;
     let user = getUser(clientNumber);
+
     if (user == undefined) {
         return <></>
     }
@@ -55,14 +49,13 @@ export const UserHome = ({ getUser }) => {
                             <button className="accordion-button collapsed" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseRetour">
                                 Retourner un document
-
                             </button>
                         </h2>
                         <div id="collapseRetour" className="accordion-collapse collapse"
                             data-bs-parent="#accordeon">
                             <div className="accordion-body d-flex justify-content-center">
                                 <Link to="retourner">
-                                        <button className='btn btn-danger'>Retourner</button>
+                                    <button className='btn btn-danger'>Retourner</button>
                                 </Link>
                             </div>
                         </div>
@@ -77,7 +70,7 @@ export const UserHome = ({ getUser }) => {
                         <div id="collapseListe" className="accordion-collapse collapse"
                             data-bs-parent="#accordeon">
                             <div className="accordion-body">
-                                <EmpruntList emprunts={emprunts}/>
+                                <EmpruntList emprunts={emprunts} />
                             </div>
                         </div>
                     </div>
