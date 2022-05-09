@@ -11,6 +11,7 @@ import { NewUser } from './Components/PageServices/UserService/NewUser/newUser';
 import { useNavigate } from 'react-router-dom';
 import { Emprunt } from './Components/PageServices/UserService/Emprunts/emprunt';
 import { Retour } from './Components/PageServices/UserService/Retours/retours';
+import { NewLivre } from './Components/PageServices/EmployeeService/newLivre/newLivre';
 
 function App() {
   const [employees, setEmployes] = useState([]);
@@ -31,6 +32,22 @@ function App() {
       navigate("/users")
       getUsers();
     } else {
+      const errorJson = await request.json()
+      const errors = errorJson.errors;
+      console.log(errors)
+    }
+  }
+  const submitNewLivre = async (livre) => {
+    let request = await fetch("http://localhost:8080/newLivre", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(livre)
+    })
+    if (request.ok) {
+      navigate("/employees")
+      } else {
       const errorJson = await request.json()
       const errors = errorJson.errors;
       console.log(errors)
@@ -75,6 +92,7 @@ function App() {
         <Route path="users/:id/retourner" element={<Retour getUser={getUser}/>}></Route>
         <Route path="employes" element={<Employes employes={employees} />}></Route>
         <Route path="employes/:id" element={<EmployeHome employes={employees} />}></Route>
+        <Route path="employes/newLivre" element={<NewLivre submit={submitNewLivre} />}></Route>
         <Route path="newUser" element={<NewUser submit={submitNewUser} />}></Route>
       </Routes>
     </>
