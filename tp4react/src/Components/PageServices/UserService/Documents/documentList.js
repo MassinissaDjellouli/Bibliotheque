@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { DocumentCard } from './documentCard';
 
-export const DocumentList = ({ documents, user }) => {
+export const DocumentList = ({ documents, user,empruntLength }) => {
     let navigate = useNavigate();
     const [selectedDoc, selectDoc] = useState({})
     if (documents == undefined || documents.length == 0) {
@@ -18,6 +18,27 @@ export const DocumentList = ({ documents, user }) => {
         console.log(data);
         navigate("/users/" + user.clientNumber)
     }
+    const getDialogContent = () => {
+        if(empruntLength == 3){
+            return <h3 className='text-center text-danger'>Nombre d'emprunts maximal atteint</h3>
+        }
+        if(selectedDoc.nbExemplaires != "0"){
+            return <DocumentCard document={selectedDoc} index={-1} />
+        }
+        return <h3 className='text-center text-danger'>Aucun exemplaires disponnibles</h3>
+    } 
+    const getDialogButtons = () => {
+        if(selectedDoc.nbExemplaires != "0" && empruntLength < 3){
+        return <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={emprunter}>Emprunter</button>
+        </div>
+        }
+        return <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
+    </div>
+
+    } 
     return (
         
         <div className='row'>
@@ -43,12 +64,13 @@ export const DocumentList = ({ documents, user }) => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <DocumentCard document={selectedDoc} index={-1} />
+                            {
+                                getDialogContent()
+                            }
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={emprunter}>Emprunter</button>
-                        </div>
+                            {
+                                getDialogButtons()
+                            }
                     </div>
                 </div>
             </div>

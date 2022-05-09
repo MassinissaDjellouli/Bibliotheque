@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { UserHeader } from '../../../Headers/usersHeader'
 import { useParams } from 'react-router-dom';
 import { DocumentList } from '../Documents/documentList';
@@ -6,9 +6,27 @@ import { useState } from 'react'
 
 export const Emprunt = ({ getUser,emprunter }) => {
     const [recherche, setRecherche] = useState("");
+    const [emprunts,setEmprunts] = useState([]);
+
     //0 = titre, 1 = auteur, 2 = année, 3 = genre
     const [rechercheType, setRechercheType] = useState(0);
     const [documents, setDocuments] = useState([]);
+
+    useEffect(() => {
+        getEmprunts(user);
+    })
+
+    const getEmprunts = async (user) => {
+        let data = await getRequest("/users/" + user.clientNumber + "/emprunts");
+        setEmprunts(data);
+    }
+    
+    const getRequest = async (path) => {
+        let request = await fetch("http://localhost:8080" + path)
+        let data = await request.json();
+        return data;
+    }
+    
     const getDocuments = (e) => {
         e.preventDefault();
         const fetchAndSetDocs = async (url) => {
@@ -38,7 +56,16 @@ export const Emprunt = ({ getUser,emprunter }) => {
     if (user == undefined) {
         return <></>
     }
+    const getEmpruntsLength = () =>{
+        let nonRetourne = [];
+        emprunts.forEach(element => {
+            if(element.returned == "false"){
+                nonRetourne.push(element);
+            }
+        });
 
+        return nonRetourne.length;
+    } 
     const getInput = () => {
         switch (rechercheType) {
             case 0:
@@ -77,6 +104,7 @@ export const Emprunt = ({ getUser,emprunter }) => {
                             <h5>Nom et prénom: {user.clientName}</h5>
                             <h5>Numéro de téléphone: {user.clientPhone}</h5>
                             <h5>Adresse: {user.clientAdress}</h5>
+                            <h5>Nombre d'emprunts non retournés: {getEmpruntsLength()}</h5>
                         </div>
                     </div>
                 </div>
@@ -129,7 +157,7 @@ export const Emprunt = ({ getUser,emprunter }) => {
                     </div>
                 </form>
                 
-                <DocumentList documents={documents} emprunter={emprunter} user={user}/>
+                <DocumentList documents={documents} emprunter={emprunter} user={user} empruntLength={getEmpruntsLength()}/>
 
             </div>
         </>
