@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class EmpruntDTO {
+    private String empruntId;
     private String clientName;
     private String empruntDate;
     private String returnDate;

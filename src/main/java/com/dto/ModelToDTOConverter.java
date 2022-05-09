@@ -74,6 +74,7 @@ public class ModelToDTOConverter {
     }
     public static EmpruntDTO empruntToEmpruntDTO(Emprunt emprunt){
         return EmpruntDTO.builder()
+                .empruntId(Integer.toString(emprunt.getId()))
                 .empruntDate(emprunt.getDateTime().format(DATE_TIME_FORMATTER))
                 .returnDate(emprunt.getReturnDateTime().format(DATE_TIME_FORMATTER))
                 .clientName(emprunt.getClient().getClientName())
