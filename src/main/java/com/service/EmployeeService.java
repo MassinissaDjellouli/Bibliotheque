@@ -2,8 +2,10 @@ package com.service;
 
 
 import com.dto.ClientDTO;
+import com.dto.DocumentDTO;
 import com.dto.EmployeDTO;
-import com.dto.ModelToDTOConverter;
+import com.utilities.ModelToDTOConverter;
+import com.models.documents.Documents;
 import com.models.documents.Livre;
 import com.models.documents.Media;
 import com.models.enums.Genres;
@@ -70,5 +72,10 @@ public class EmployeeService {
 
     public List<EmployeDTO> getEmployeList() {
         return ModelToDTOConverter.employeListToEmployeListDTO(employeeRepository.findAll());
+    }
+    public DocumentDTO updateDocument(int documentId, Documents newDoc) {
+        newDoc.setDocumentId(documentId);
+        documentRepository.save(newDoc);
+        return ModelToDTOConverter.documentToDTO(newDoc);
     }
 }

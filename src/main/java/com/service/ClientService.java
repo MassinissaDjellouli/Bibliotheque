@@ -1,6 +1,6 @@
 package com.service;
 
-import com.dto.ModelToDTOConverter;
+import com.utilities.ModelToDTOConverter;
 import com.dto.*;
 import com.models.Emprunt;
 import com.models.documents.Documents;
@@ -127,4 +127,6 @@ public class ClientService {
         if (optional.isEmpty()) throw new IllegalArgumentException();
         return optional.get();
     }
+
+
 }
