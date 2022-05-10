@@ -1,4 +1,4 @@
-package com.dto;
+package com.utilities;
 
 import com.dto.*;
 import com.models.Emprunt;
@@ -58,6 +58,12 @@ public class ModelToDTOConverter {
             }
         }
         return documentDTOList;
+    }
+    public static DocumentDTO documentToDTO(Documents document) {
+        if(document instanceof Livre){
+            return LivreToDTO((Livre) document);
+        }
+    return mediaToDTO((Media) document);
     }
     public static DateDTO empruntToDateDTO(Emprunt emprunt){
         return DateDTO.builder()
