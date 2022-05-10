@@ -46,6 +46,22 @@ export const EmployeHome = ({ getEmploye }) => {
                             </div>
                         </div>
                     </div>
+                    <div className="accordion-item">
+                        <h2 className="accordion-header" id="headingThree">
+                            <button className="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseModif">
+                                Modifier un document
+                            </button>
+                        </h2>
+                        <div id="collapseModif" className="accordion-collapse collapse"
+                            data-bs-parent="#accordeon">
+                            <div className="accordion-body d-flex justify-content-center">
+                                <Link to="/employes/modifier">
+                                    <button className='btn btn-primary'>Modifier</button>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
