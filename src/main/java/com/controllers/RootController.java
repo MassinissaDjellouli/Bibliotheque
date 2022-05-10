@@ -1,21 +1,25 @@
 package com.controllers;
 
 import com.dto.*;
+import com.models.documents.Livre;
 import com.models.documents.Media;
 import com.models.enums.Genres;
 import com.models.enums.MediaType;
 import com.service.ClientService;
 import com.service.EmployeeService;
+import com.utilities.DTOToModelConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.processing.SupportedOptions;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "http://localhost:3000",methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.OPTIONS} )
 public class RootController {
     @Autowired
     EmployeeService employeeService;
@@ -26,17 +30,14 @@ public class RootController {
 //        return "index";
 //    }
     @GetMapping("/users")
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<ClientDTO> getUsers(){
         return employeeService.getClientList();
     }
     @GetMapping("/employees")
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<EmployeDTO> getEmployes(){
         return employeeService.getEmployeList();
     }
     @PostMapping("/newUser")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<ClientDTO> createUser(@RequestBody @Valid ClientDTO clientDTO){
         int clientId = clientService.saveClient(clientDTO.getClientName(),clientDTO.getClientAdress(),clientDTO.getClientPhone());
         clientDTO.setClientNumber(Integer.toString(clientId));
@@ -45,7 +46,6 @@ public class RootController {
                 : ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
     @PostMapping("/newLivre")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<LivreDTO> createLivre(@RequestBody @Valid LivreDTO livreDTO){
         int livreId = employeeService.saveLivre(
                 livreDTO.getTitre(),
@@ -63,7 +63,6 @@ public class RootController {
                 : ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
     @PostMapping("/newMedia")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<MediaDTO> createMedia(@RequestBody @Valid MediaDTO mediaDTO){
         int mediaId = employeeService.saveMedia(mediaDTO.getTitre(),
                 mediaDTO.getAuteur(),
@@ -78,31 +77,26 @@ public class RootController {
                 : ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
     @GetMapping("/rechercheTitre/{recherche}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<DocumentDTO> getRechercheTitre(@PathVariable String recherche){
         System.out.println(recherche);
         return clientService.rechercheParTitre(recherche);
     }
     @GetMapping("/rechercheAuteur/{recherche}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<DocumentDTO> getRechercheAuteur(@PathVariable String recherche){
         System.out.println(recherche);
         return clientService.rechercheParAuteur(recherche);
     }
     @GetMapping("/rechercheAnne/{recherche}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<DocumentDTO> getRechercheAnne(@PathVariable String recherche){
         System.out.println(recherche);
         return clientService.rechercheParAnne(Integer.parseInt(recherche));
     }
     @GetMapping("/rechercheGenre/{recherche}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<DocumentDTO> getRechercheGenre(@PathVariable String recherche){
         System.out.println(recherche);
         return clientService.rechercheParGenre(Genres.valueOf(recherche));
     }
     @PostMapping("/user/{clientNumber}/emprunter/{documentId}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<EmpruntDTO>> emprunter(@PathVariable String clientNumber,
                                                 @PathVariable String documentId){
         int empruntId = clientService.emprunter(Integer.parseInt(clientNumber),Integer.parseInt(documentId));
@@ -114,16 +108,29 @@ public class RootController {
                 ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
     @PostMapping("/user/{clientNumber}/retourner/{empruntId}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Boolean> retourner(@PathVariable String clientNumber,
                                                 @PathVariable String empruntId){
         clientService.retourner(Integer.parseInt(clientNumber),Integer.parseInt(empruntId));
         return ResponseEntity.status(HttpStatus.OK).build();
     }
     @GetMapping("/users/{clientNumber}/emprunts")
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<EmpruntDTO> getEmprunts(@PathVariable String clientNumber){
         return clientService.getEmprunts(Integer.parseInt(clientNumber));
     }
+    @PutMapping("/employes/modifier/livre/{id}")
+    public ResponseEntity<DocumentDTO> updateLivre(@PathVariable String id,
+                                        @RequestBody @Valid LivreDTO livreDTO){
+        Livre livre = DTOToModelConverter.DtoToLivre(livreDTO);
+        DocumentDTO dto = employeeService.updateDocument(Integer.parseInt(id),livre);
+        return ResponseEntity.status(204).body(dto);
+    }
+    @PutMapping("/employes/modifier/media/{id}")
+    public ResponseEntity<DocumentDTO> updateMedia(@PathVariable String id,
+                                        @RequestBody @Valid MediaDTO mediaDTO){
+        Media media = DTOToModelConverter.DtoToMedia(mediaDTO);
+        DocumentDTO dto = employeeService.updateDocument(Integer.parseInt(id),media);
+        return ResponseEntity.status(204).body(dto);
+    }
+
 
 }
