@@ -13,11 +13,14 @@ import { Emprunt } from './Components/PageServices/UserService/Emprunts/emprunt'
 import { Retour } from './Components/PageServices/UserService/Retours/retours';
 import { NewLivre } from './Components/PageServices/EmployeeService/newLivre/newLivre';
 import { NewMedia } from './Components/PageServices/EmployeeService/newMedia/newMedia';
+import { UpdateDocPage } from './Components/PageServices/EmployeeService/Update/updateDocPage';
+import { LivreUpdateForm } from './Components/PageServices/EmployeeService/Update/updateLivre/livreUpdateForm';
+import { MediaUpdateForm } from './Components/PageServices/EmployeeService/Update/updateMedia/mediaUpdateForm';
 
 function App() {
   const [employees, setEmployes] = useState([]);
   const [users, setUsers] = useState([]);
-
+  const [modifDoc, setModifDoc] = useState([])
   let navigate = useNavigate();
 
   const getEmployees = async () => {
@@ -64,11 +67,36 @@ function App() {
   const submitNewMedia = async (media) => {
     postRequest("/newMedia", media, "/employes")
   }
+  const submitUpdateLivre = async (livre,id) => {
+    putRequest("/employes/modifier/livre/"+id, livre, "/employes")
+  }
+  const submitUpdateMedia = async (media,id) => {
+    putRequest("/employes/modifier/media/"+id, media, "/employes")
+  }
 
   const getRequest = async (path) => {
     let request = await fetch("http://localhost:8080" + path)
     let data = await request.json();
     return data;
+  }
+
+  const putRequest = async (path,body,returnPath) => {
+    console.log();
+    let request = await fetch("http://localhost:8080" + path, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+
+    if (request.ok) {
+      navigate(returnPath)
+    } else {
+      const errorJson = await request.json()
+      const errors = errorJson.errors;
+      console.log(errors)
+    }
   }
 
   const postRequest = async (path, body, returnPath) => {
@@ -103,6 +131,9 @@ function App() {
 
         <Route path="employes/newLivre" element={<NewLivre submit={submitNewLivre} />}></Route>
         <Route path="employes/newMedia" element={<NewMedia submit={submitNewMedia} />}></Route>
+        <Route path="employes/modifier" element={<UpdateDocPage setModifDoc={setModifDoc}/>}></Route>
+        <Route path="employes/modifier/livre/:id" element={<LivreUpdateForm livre={modifDoc} submit={submitUpdateLivre}/>}></Route>
+        <Route path="employes/modifier/media/:id" element={<MediaUpdateForm livre={modifDoc} submit={submitUpdateMedia}/>}></Route>
 
         <Route path="newUser" element={<NewUser submit={submitNewUser} />}></Route>
       </Routes>
